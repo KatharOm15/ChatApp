@@ -26,6 +26,10 @@ app.use("/", signinRoute);
 app.use("/messages", messageRoutes);
 app.use("/users", userRoutes);
 app.use("/friend-requests", friendRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Server is running on Vercel!");
+});
 // ✅ Start API Server on PORT 3000
 app.listen(3000, () => {
   console.log("API Server running on port 3000");
