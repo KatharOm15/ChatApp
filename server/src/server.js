@@ -21,12 +21,11 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // ✅ Routes
-app.use("/", signupRouter);
-app.use("/", signinRoute);
-app.use("/messages", messageRoutes);
-app.use("/users", userRoutes);
-app.use("/friend-requests", friendRoutes);
-
+app.use("/api", signupRouter);
+app.use("/api", signinRoute);
+app.use("/api/messages", messageRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/friend-requests", friendRoutes);
 // ✅ Start API Server on PORT 3000
 app.listen(3000, () => {
   console.log("API Server running on port 3000");
