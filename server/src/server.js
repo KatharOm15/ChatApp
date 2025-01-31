@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use("/", signupRouter);
 app.use("/", signinRoute);
 app.use("/messages", messageRoutes);
-app.use("//users", userRoutes);
+app.use("/users", userRoutes);
 app.use("/friend-requests", friendRoutes);
 // ✅ Start API Server on PORT 3000
 app.listen(3000, () => {
