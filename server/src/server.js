@@ -2,10 +2,6 @@ const express = require("express");
 const dbconn = require("./config/config");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { Server } = require("socket.io");
-const http = require("http");
-
-
 
 const signupRouter = require("./routes/signupRoute");
 const signinRoute = require("./routes/signinRoute");
@@ -20,21 +16,20 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-// ✅ Routes
+// ✅ Routes (WITHOUT `/api`)
 app.use("/", signupRouter);
 app.use("/", signinRoute);
 app.use("/messages", messageRoutes);
 app.use("/users", userRoutes);
 app.use("/friend-requests", friendRoutes);
 
+// ✅ Default Route for Testing
 app.get("/", (req, res) => {
   res.send("Server is running on Vercel!");
 });
-// ✅ Start API Server on PORT 3000
-app.listen(3000, () => {
-  console.log("API Server running on port 3000");
-});
 
+// ✅ Export app for Vercel
+module.exports = app;
 // ✅ Separate Chat Server on PORT 5000
 const chatApp = express();
 const chatServer = http.createServer(chatApp);
