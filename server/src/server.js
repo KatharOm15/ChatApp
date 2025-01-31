@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
-// ✅ Routes (WITHOUT `/api`)
+// ✅ API Routes
 app.use("/", signupRouter);
 app.use("/", signinRoute);
 app.use("/messages", messageRoutes);
@@ -30,41 +30,3 @@ app.get("/", (req, res) => {
 
 // ✅ Export app for Vercel
 module.exports = app;
-// ✅ Separate Chat Server on PORT 5000
-const chatApp = express();
-const chatServer = http.createServer(chatApp);
-
-
-const io = new Server(chatServer, {
-  cors: {
-    origin: "http://localhost:5173", // React frontend
-    methods: ["GET", "POST"],
-  },
-});
-
-// ✅ Import Message Model
-const Message = require("./models/messageSchema");
-
-// ✅ Socket Handling
-io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
-
-  socket.on("sendMessage", async (data) => {
-    try {
-      const newMessage = new Message(data);
-      await newMessage.save();
-      io.emit("receiveMessage", data); // Broadcast message
-    } catch (error) {
-      console.error("Error saving message:", error);
-    }
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-  });
-});
-
-// ✅ Start Chat Server on PORT 5000
-chatServer.listen(5000, () => {
-  console.log("Chat Server running on port 5000");
-});
