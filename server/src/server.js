@@ -5,15 +5,15 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const http = require("http");
 
-
-
 const signupRouter = require("./routes/signupRoute");
 const signinRoute = require("./routes/signinRoute");
 const userRoutes = require("./routes/userRoute");
 const friendRoutes = require("./routes/friendRoute");
 const messageRoutes = require("./routes/messageRoutes");
 
+// ✅ Initialize Express App
 const app = express();
+const server = http.createServer(app); // Use HTTP server
 
 // ✅ Middleware
 app.use(express.json());
@@ -26,17 +26,9 @@ app.use("/api", signinRoute);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/friend-requests", friendRoutes);
-// ✅ Start API Server on PORT 3000
-app.listen(3000, () => {
-  console.log("API Server running on port 3000");
-});
 
-// ✅ Separate Chat Server on PORT 5000
-const chatApp = express();
-const chatServer = http.createServer(chatApp);
-
-
-const io = new Server(chatServer, {
+// ✅ WebSocket Server (Merged on Same Port)
+const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173", // React frontend
     methods: ["GET", "POST"],
@@ -65,7 +57,8 @@ io.on("connection", (socket) => {
   });
 });
 
-// ✅ Start Chat Server on PORT 5000
-chatServer.listen(5000, () => {
-  console.log("Chat Server running on port 5000");
+// ✅ Start the Server (Single Port)
+const PORT = process.env.PORT || 3000; // Use Render-assigned port
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
