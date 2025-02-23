@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
 });
 
 // ✅ Start the Server (Single Port)
-const PORT = process.env.PORT || 3000; // Use Render-assigned port
+const PORT =3000; // Use Render-assigned port
 server.listen(PORT, () => {
   console.log(`Server running on port  ${PORT} 👍`);
 });
