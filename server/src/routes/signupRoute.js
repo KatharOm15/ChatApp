@@ -4,7 +4,10 @@ const router = express.Router();
 const signup= require("../models/signupSchema")
 const bcrypt= require("bcryptjs")
 
-
+router.get("/", (req, res) => {
+    res.send("API is working!");
+  });
+  
 
 router.post("/",async(req,res)=>{
     const {name,email,password}=req.body;

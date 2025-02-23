@@ -35,6 +35,10 @@ const io = new Server(server, {
   },
 });
 
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
 // ✅ Import Message Model
 const Message = require("./models/messageSchema");
 
