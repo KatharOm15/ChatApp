@@ -24,7 +24,7 @@ function Dashboard() {
   // 🔹 Fetch all users excluding the logged-in user
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/users?exclude=${userID}`)
+      .get(`http://localhost:3000/app/users?exclude=${userID}`)
       .then((response) => setUsers(response.data))
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
@@ -32,7 +32,7 @@ function Dashboard() {
   // 🔹 Fetch sent requests
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/users/sent/${userID}`)
+      .get(`http://localhost:3000/app/users/sent/${userID}`)
       .then((response) => setSentRequests(response.data))
       .catch((error) => console.error("Error fetching sent requests:", error));
   }, []);
@@ -40,7 +40,7 @@ function Dashboard() {
   // 🔹 Fetch pending friend requests
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/friend-requests/pending/${userID}`)
+      .get(`http://localhost:3000/app/friend-requests/pending/${userID}`)
       .then((response) => setPendingRequests(response.data))
       .catch((error) => console.error("Error fetching pending requests:", error));
   }, [sentRequests, acceptedUsers]); // ✅ Refresh when requests change
@@ -48,7 +48,7 @@ function Dashboard() {
   // 🔹 Fetch accepted friends
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/users/accepted/${userID}`)
+      .get(`http://localhost:3000/app/users/accepted/${userID}`)
       .then((response) => setAcceptedUsers(response.data))
       .catch((error) => console.error("Error fetching accepted friends:", error));
   }, [sentRequests, acceptedUsers]); // ✅ Auto-refresh on changes
@@ -64,7 +64,7 @@ function Dashboard() {
     }
 
     axios
-      .post(`http://localhost:3000/friend-requests/send`, {
+      .post(`http://localhost:3000/app/friend-requests/send`, {
         from: userID,
         to: user._id,
       })
@@ -74,7 +74,7 @@ function Dashboard() {
         
         // ✅ Refresh pending requests
         axios
-          .get(`http://localhost:3000/friend-requests/pending/${userID}`)
+          .get(`http://localhost:3000/app/friend-requests/pending/${userID}`)
           .then((response) => setPendingRequests(response.data));
       })
       .catch((error) => console.error("Error sending request:", error));
@@ -83,7 +83,7 @@ function Dashboard() {
   // 🔹 Cancel friend request
   const handleCancelRequest = (id) => {
     axios
-      .delete(`http://localhost:3000/friend-requests/cancel`, {
+      .delete(`http://localhost:3000/app/friend-requests/cancel`, {
         data: { from: userID, to: id },
       })
       .then(() => {
@@ -95,7 +95,7 @@ function Dashboard() {
   // 🔹 Accept Friend Request
   const handleAcceptRequest = (user) => {
     axios
-      .post(`http://localhost:3000/friend-requests/accept`, {
+      .post(`http://localhost:3000/app/friend-requests/accept`, {
         from: user._id,
         to: userID,
       })
@@ -105,7 +105,7 @@ function Dashboard() {
 
         // ✅ Refresh accepted friends
         axios
-          .get(`http://localhost:3000/users/accepted/${userID}`)
+          .get(`http://localhost:3000/app/users/accepted/${userID}`)
           .then((response) => setAcceptedUsers(response.data));
       })
       .catch((error) => console.error("Error accepting request:", error));
@@ -114,7 +114,7 @@ function Dashboard() {
   // 🔹 Reject Friend Request
   const handleRejectRequest = (user) => {
     axios
-      .post(`http://localhost:3000/friend-requests/reject`, {
+      .post(`http://localhost:3000/app/friend-requests/reject`, {
         from: user._id,
         to: userID,
       })

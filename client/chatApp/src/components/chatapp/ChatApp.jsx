@@ -36,7 +36,7 @@ function ChatApp() {
     if (!userId || !receiverId) return; // Ensure both user IDs exist
 
     axios
-      .get(`http://localhost:3000/messages/getMessages?userId=${userId}&receiverId=${receiverId}`)
+      .get(`http://localhost:3000/app/messages/getMessages?userId=${userId}&receiverId=${receiverId}`)
       .then((response) => {
         // Handle the case when response.data is null or undefined
         if (response.data) {
@@ -65,7 +65,7 @@ function ChatApp() {
     if (message.trim() !== "") {
       const newMessage = { sender: userId, receiver: receiverId, message };
       try {
-        await axios.post("http://localhost:3000/messages/sendMessage", newMessage);
+        await axios.post("http://localhost:3000/app/messages/sendMessage", newMessage);
         socket.emit("sendMessage", newMessage); // Emit to WebSocket
         setMessages((prev) => [...prev, newMessage]); // ✅ Optimistic UI update
         setMessage("");
