@@ -16,7 +16,7 @@ function Signin() {
   const handleLogin = async () => {
     try {
       
-      const response = await axios.post('http://localhost:3000/api/signin', {
+      const response = await axios.post('https://chatapp-server-sxub.onrender.com/api/signin', {
         email,
         password
       });

@@ -13,7 +13,7 @@ function Profile() {
   const [users, setUser] = useState([]);
   const firstLetter = users?.name?.toString().charAt(0).toUpperCase() || '';
   useEffect(()=>{
-      axios.get(`http://localhost:3000/api/users/getName/${userId}`)
+      axios.get(`https://chatapp-server-sxub.onrender.com/api/users/getName/${userId}`)
       .then((response) => setUser(response.data))
       .catch((error) => console.error("Error fetching sent requests:", error));
   },

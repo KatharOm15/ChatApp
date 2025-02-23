@@ -40,7 +40,7 @@ function Signup() {
 
     try {
       // Send signup data to the backend
-      const response=axios.post('http://localhost:3000/api',formData)
+      const response=axios.post('https://chatapp-server-sxub.onrender.com/api',formData)
       
 
 

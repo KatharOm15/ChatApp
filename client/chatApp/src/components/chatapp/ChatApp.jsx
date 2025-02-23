@@ -5,7 +5,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 
-const socket = io("http://localhost:3000");
+const socket = io("https://chatapp-server-sxub.onrender.com");
 
 function ChatApp() {
   const [message, setMessage] = useState("");
@@ -36,7 +36,7 @@ function ChatApp() {
     if (!userId || !receiverId) return; // Ensure both user IDs exist
 
     axios
-      .get(`http://localhost:3000/api/messages/getMessages?userId=${userId}&receiverId=${receiverId}`)
+      .get(`https://chatapp-server-sxub.onrender.com/api/messages/getMessages?userId=${userId}&receiverId=${receiverId}`)
       .then((response) => {
         // Handle the case when response.data is null or undefined
         if (response.data) {
@@ -65,7 +65,7 @@ function ChatApp() {
     if (message.trim() !== "") {
       const newMessage = { sender: userId, receiver: receiverId, message };
       try {
-        await axios.post("http://localhost:3000/api/messages/sendMessage", newMessage);
+        await axios.post("https://chatapp-server-sxub.onrender.com/api/messages/sendMessage", newMessage);
         socket.emit("sendMessage", newMessage); // Emit to WebSocket
         setMessages((prev) => [...prev, newMessage]); // ✅ Optimistic UI update
         setMessage("");

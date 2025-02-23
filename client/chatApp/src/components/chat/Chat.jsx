@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import ChatApp from "../chatapp/ChatApp";
 import Profile from "../profile/Profile";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://chatapp-server-sxub.onrender.com/");
 
 function Chat() {
   return (
