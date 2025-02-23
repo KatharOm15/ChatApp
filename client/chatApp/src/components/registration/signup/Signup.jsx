@@ -40,12 +40,10 @@ function Signup() {
 
     try {
       // Send signup data to the backend
-      const response=axios.post('https://chatapp-server-sxub.onrender.com/api',formData)
-      
+      const response = axios.post('https://chatapp-server-sxub.onrender.com/api', formData);
 
-
-      if ((await response).status===200) {
-        alert("Account Created Successfully")
+      if ((await response).status === 200) {
+        alert("Account Created Successfully");
         setSuccess('Account created successfully!');
         setTimeout(() => navigate('/signin'), 2000); // Redirect after 2 seconds
       } else {
@@ -61,73 +59,29 @@ function Signup() {
   };
 
   return (
-    <div className="w-screen h-screen bg-blue-200 flex items-center justify-center">
-      <div className="w-1/3 h-auto rounded-xl bg-cyan-500 shadow-xl flex flex-col items-center p-8">
-        <h2 className="text-white text-2xl font-bold mb-6">Sign Up</h2>
-        <form onSubmit={handleSubmit} className="w-full bg-white rounded-xl shadow-lg p-6 flex flex-col">
+    <div className="w-full h-screen bg-blue-200 flex items-center justify-center px-4">
+      <div className="w-full max-w-md md:max-w-lg lg:max-w-xl bg-cyan-500 rounded-xl shadow-xl flex flex-col items-center p-6 md:p-8">
+        <h2 className="text-white text-2xl md:text-3xl font-bold mb-4 md:mb-6">Sign Up</h2>
+        <form onSubmit={handleSubmit} className="w-full bg-white rounded-xl shadow-lg p-4 md:p-6 flex flex-col">
           {/* Name Input */}
-          <label htmlFor="name" className="text-gray-700 font-semibold mb-2">
-            User Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            minLength={3}
-            placeholder="Enter your full name"
-            className="bg-slate-200 outline-none p-3 w-full h-12 mb-4 rounded-lg border-none"
-            value={formData.name}
-            onChange={handleChange}
-          />
+          <label htmlFor="name" className="text-gray-700 font-semibold mb-1 md:mb-2">User Name</label>
+          <input id="name" type="text" minLength={3} placeholder="Enter your full name" className="bg-slate-200 outline-none p-2 md:p-3 w-full h-10 md:h-12 mb-3 md:mb-4 rounded-lg border-none" value={formData.name} onChange={handleChange} />
           {/* Email Input */}
-          <label htmlFor="email" className="text-gray-700 font-semibold mb-2">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            className="bg-slate-200 outline-none p-3 w-full h-12 mb-4 rounded-lg border-none"
-            value={formData.email}
-            onChange={handleChange}
-          />
+          <label htmlFor="email" className="text-gray-700 font-semibold mb-1 md:mb-2">Email</label>
+          <input id="email" type="email" placeholder="Enter your email" className="bg-slate-200 outline-none p-2 md:p-3 w-full h-10 md:h-12 mb-3 md:mb-4 rounded-lg border-none" value={formData.email} onChange={handleChange} />
           {/* Password Input */}
-          <label htmlFor="password" className="text-gray-700 font-semibold mb-2">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            className="bg-slate-200 outline-none p-3 w-full h-12 mb-4 rounded-lg border-none"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <label htmlFor="password" className="text-gray-700 font-semibold mb-1 md:mb-2">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" className="bg-slate-200 outline-none p-2 md:p-3 w-full h-10 md:h-12 mb-3 md:mb-4 rounded-lg border-none" value={formData.password} onChange={handleChange} />
           {/* Confirm Password Input */}
-          <label htmlFor="confirmPassword" className="text-gray-700 font-semibold mb-2">
-            Confirm Password
-          </label>
-          <input
-            id="confirmPassword"
-            type="password"
-            placeholder="Confirm your password"
-            className="bg-slate-200 outline-none p-3 w-full h-12 mb-6 rounded-lg border-none"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
+          <label htmlFor="confirmPassword" className="text-gray-700 font-semibold mb-1 md:mb-2">Confirm Password</label>
+          <input id="confirmPassword" type="password" placeholder="Confirm your password" className="bg-slate-200 outline-none p-2 md:p-3 w-full h-10 md:h-12 mb-4 md:mb-6 rounded-lg border-none" value={formData.confirmPassword} onChange={handleChange} />
           {/* Error and Success Messages */}
-          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-          {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
+          {error && <p className="text-red-500 text-sm mb-3 md:mb-4">{error}</p>}
+          {success && <p className="text-green-500 text-sm mb-3 md:mb-4">{success}</p>}
           {/* Sign Up Button */}
-          <button type="submit" className="w-full h-12 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-            Sign Up
-          </button>
+          <button type="submit" className="w-full h-10 md:h-12 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">Sign Up</button>
         </form>
-        <p className="text-white mt-4">
-          Already have an account?{' '}
-          <span onClick={handleAcc} className="text-yellow-300 underline cursor-pointer">
-            Log In
-          </span>
-        </p>
+        <p className="text-white mt-3 md:mt-4 text-sm md:text-base">Already have an account?{' '}<span onClick={handleAcc} className="text-yellow-300 underline cursor-pointer">Log In</span></p>
       </div>
     </div>
   );
